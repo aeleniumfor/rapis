@@ -1,0 +1,16 @@
+{
+  "name": "testuser",
+  "project": [
+    {
+      "name": "testProject",
+      "routing": [
+        {
+          "type": "web",
+          "active": true,
+          "request": "testuser.testProject.localhost",
+          "response": "localhost:8080"
+        }
+      ]
+    }
+  ]
+}
