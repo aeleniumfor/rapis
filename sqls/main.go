@@ -1,10 +1,14 @@
 package main
 
 import (
+	"context"
 	"database/sql"
 	"fmt"
 
 	_ "github.com/lib/pq"
+
+	driver "github.com/arangodb/go-driver"
+	"github.com/arangodb/go-driver/http"
 )
 
 type Routing struct {
@@ -41,6 +45,4 @@ func Init(v_urls, t_urls string) *Routing {
 }
 
 func main() {
-	routing := new(Routing)
-	routing.Get_Routing()
 }
