@@ -66,22 +66,19 @@ services:
       - 5431:5432
     volumes:
       - ./initsql:/docker-entrypoint-initdb.d
-
   # arangodb:
   #   image: arangodb/arangodb
-  #   restart: always  
-  #   environment: 
+  #   restart: always
+  #   environment:
   #     - ARANGO_RANDOM_ROOT_PASSWORD=1
-  #   ports: 
+  #   ports:
   #     - 8529:8529
-
   # mongo:
   #   image: mongo
   #   restart: always
   #   environment:
   #     MONGO_INITDB_ROOT_USERNAME: root
   #     MONGO_INITDB_ROOT_PASSWORD: example
-
   # mongo-express:
   #   image: mongo-express
   #   restart: always
