@@ -48,7 +48,7 @@ func Init() *DB_Routing {
 	return &DB_Routing{}
 }
 
-func main() {
-	db := Init()
-	db.Get_Routing()
-}
+// func main() {
+// 	db := Init()
+// 	db.Get_Routing()
+// }
