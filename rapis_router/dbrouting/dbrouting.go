@@ -1,4 +1,4 @@
-package sqls
+package dbrouting
 
 import (
 	"database/sql"
@@ -20,8 +20,6 @@ func (r *DB_Routing) Get_Routing() {
 	if err != nil {
 		fmt.Println(err)
 	}
-
-	r.v_urls = "testproject.user.localhost"
 	query := fmt.Sprintf("SELECT t_urls FROM hosts WHERE v_urls = '%s'", r.v_urls)
 	rows, err := db.Query(query)
 	if err != nil {
@@ -43,8 +41,12 @@ func (r DB_Routing) Get_v_urls() string {
 	return r.v_urls
 }
 
+func (r DB_Routing) Get_t_urls() string {
+	return r.t_urls
+}
+
 func Init() *DB_Routing {
-	//fmt.Println("Init")
+	fmt.Println("DB_Inited")
 	return &DB_Routing{}
 }
 

@@ -1,4 +1,4 @@
-package cash_redis
+package cash_routing
 
 import (
 	"fmt"
@@ -26,7 +26,7 @@ type Cach struct {
 }
 
 func Init(host, protocol string) *Cach {
-	fmt.Println("Init")
+	fmt.Println("Redis_Init")
 	return &Cach{host: host, protocol: protocol}
 }
 
@@ -40,6 +40,6 @@ func (c Cach) GetCash(host string) (res string, err error) {
 	return s, err
 }
 
-func (c *Cach) SetCach(request, revers_host string) {
-	c.client.Do("SET", request, revers_host)
+func (c *Cach) SetCach(v_host, t_host string) {
+	c.client.Do("SET", v_host, t_host)
 }
