@@ -1,4 +1,4 @@
-package main
+package sqls
 
 import (
 	"database/sql"
@@ -35,8 +35,16 @@ func (r *DB_Routing) Get_Routing() {
 	fmt.Println(r.v_urls + " -> " + r.t_urls)
 }
 
+func (r *DB_Routing) Set_v_urls(v_urls string) {
+	r.v_urls = v_urls
+}
+
+func (r DB_Routing) Get_v_urls() string {
+	return r.v_urls
+}
+
 func Init() *DB_Routing {
-	fmt.Println("Init")
+	//fmt.Println("Init")
 	return &DB_Routing{}
 }
 
