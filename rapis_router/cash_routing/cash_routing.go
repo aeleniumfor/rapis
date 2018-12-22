@@ -41,5 +41,5 @@ func (c Cach) GetCash(host string) (res string, err error) {
 }
 
 func (c *Cach) SetCach(v_host, t_host string) {
-	c.client.Do("SET", v_host, t_host)
+	c.client.Do("SETEX", v_host, 10, t_host)
 }
