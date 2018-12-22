@@ -14,3 +14,14 @@
     }
   ]
 }
+
+INSERT INTO hosts(
+    project_name,
+    v_urls,
+    t_urls
+)
+VALUES(
+    'testproject2',
+    'testproject2.user.localhost:8090',
+    'locslhost:8081'
+)

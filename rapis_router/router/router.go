@@ -1,8 +1,6 @@
-package main
+package router
 
 import (
-	"fmt"
-
 	"github.com/rapis/rapis_router/cash_routing"
 	"github.com/rapis/rapis_router/dbrouting"
 )
@@ -42,7 +40,7 @@ func (r Routing) GetRouting() (string, string) {
 	return r.v_urls, r.t_urls
 }
 
-func main() {
+// func main() {
 	//cash := cash_redis.Init("localhost:6379", "tcp")
 	// dbsql := dbrouting.Init()
 	// redis := cash_routing.Init("localhost:6379", "tcp")
@@ -60,11 +58,11 @@ func main() {
 	// 	fmt.Println("=")
 	// 	fmt.Println(s)
 	// }
-	routing := Init()
-	routing.SetVRoting("testproject.user.localhost")
-	routing.Routing()
-	a, b := routing.GetRouting()
-	fmt.Println(a)
-	fmt.Println(b)
+// 	routing := Init()
+// 	routing.SetVRoting("testproject.user.localhost")
+// 	routing.Routing()
+// 	a, b := routing.GetRouting()
+// 	fmt.Println(a)
+// 	fmt.Println(b)
 
-}
+// }
