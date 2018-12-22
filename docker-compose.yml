@@ -52,7 +52,7 @@ services:
   postgres-gui:
     build: ./pgweb/
     ports:
-      - 8532:8080
+      - 8087:8080
     links:
       - postgres:postgres
 
