@@ -6,19 +6,6 @@ import (
 	"github.com/gomodule/redigo/redis"
 )
 
-// func main() {
-// 	c, err := redis.Dial("tcp", ":6379")
-// 	if err != nil {
-// 		// handle error
-// 	}
-// 	defer c.Close()
-
-// 	r, _ := c.Do("SET", "hosts", "web.svc.user.localhost")
-// 	fmt.Println(r)
-// 	s, _ := redis.String(c.Do("GET", "hosts"))
-// 	fmt.Println(s)
-// }
-
 type Cach struct {
 	protocol string
 	host     string
