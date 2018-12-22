@@ -49,44 +49,44 @@ services:
     ports:
       - 32784:4171
 
-  # postgres-gui:
-  #   build: ./pgweb/
-  #   ports:
-  #     - 8111:8080
-  #   links:
-  #     - postgres:postgres
+  postgres-gui:
+    build: ./pgweb/
+    ports:
+      - 8111:8080
+    links:
+      - postgres:postgres
 
-  # postgres:
-  #   image: postgres
+  postgres:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+    ports:
+      - 5431:5432
+    volumes:
+      - ./initsql:/docker-entrypoint-initdb.d
+
+  # arangodb:
+  #   image: arangodb/arangodb
+  #   restart: always  
+  #   environment: 
+  #     - ARANGO_RANDOM_ROOT_PASSWORD=1
+  #   ports: 
+  #     - 8529:8529
+
+  # mongo:
+  #   image: mongo
   #   restart: always
   #   environment:
-  #     POSTGRES_USER: root
-  #     POSTGRES_PASSWORD: root
+  #     MONGO_INITDB_ROOT_USERNAME: root
+  #     MONGO_INITDB_ROOT_PASSWORD: example
+
+  # mongo-express:
+  #   image: mongo-express
+  #   restart: always
   #   ports:
-  #     - 5431:5432
-  #   volumes:
-  #     - ./initsql:/docker-entrypoint-initdb.d
-
-  arangodb:
-    image: arangodb/arangodb
-    restart: always  
-    environment: 
-      - ARANGO_RANDOM_ROOT_PASSWORD=1
-    ports: 
-      - 8529:8529
-
-  mongo:
-    image: mongo
-    restart: always
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: example
-
-  mongo-express:
-    image: mongo-express
-    restart: always
-    ports:
-      - 8481:8081
-    environment:
-      ME_CONFIG_MONGODB_ADMINUSERNAME: root
-      ME_CONFIG_MONGODB_ADMINPASSWORD: example
+  #     - 8481:8081
+  #   environment:
+  #     ME_CONFIG_MONGODB_ADMINUSERNAME: root
+  #     ME_CONFIG_MONGODB_ADMINPASSWORD: example
