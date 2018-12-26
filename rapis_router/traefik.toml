@@ -1,3 +1,7 @@
+
+traefikLogsFile = "/var/log/traefik/traefik.log"
+accessLogsFile = "/var/log/traefik/access.log"
+logLevel = "DEBUG"
 defaultEntryPoints = ["http", "https"]
 
 [traefikLog]
@@ -7,38 +11,12 @@ defaultEntryPoints = ["http", "https"]
 [entryPoints]
   [entryPoints.http]
   address = ":80"
-  [entryPoints.https]
-  address = ":443"
-    [entryPoints.https.tls]
 
-[acme]
-email = "YOUR EMAIL"
-storage = "/etc/traefik/acme.json"
-entryPoint = "https"
-  [acme.dnsChallenge]
-    provider = "cloudflare"
-    delayBeforeCheck = 0
-  [[acme.domains]]
-    main = "*.shikugawa.net"
-
-[file]
-watch = true
-
-[backends]
-  [backends.jenkins]
-    [backends.jenkins.servers]
-      [backends.jenkins.servers.server0]
-        url = "http://jenkins:8080" 
-        weight = 1
-
-[frontends]
-  [frontends.jenkins]
-    backend = "jenkins"
-    passHostHeader = true # これをつけないとヘッダ情報がサービス側に飛ばない
-
-    [frontends.jenkins.routes.host]
-      rule = "Host:jenkins.shikugawa.net"
-
+[etcd]
+  endpoint = "etcd:2379"
+  watch = true
+  prefix = "/traefik"
+  
 [api]
   entryPoint = "traefik"
   dashboard = true # WebUIの有効化

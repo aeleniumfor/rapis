@@ -1,16 +1,16 @@
 version: "2"
 services:
-  # test1:
-  #   image: php:5.6-apache
-  #   ports:
-  #     - 8081:80
-  #   restart: always
+  test1:
+    image: php:5.6-apache
+    ports:
+      - 8081:80
+    restart: always
 
-  # test2:
-  #   image: php:5.6-apache
-  #   ports:
-  #     - 8082:80
-  #   restart: always
+  test2:
+    image: php:5.6-apache
+    ports:
+      - 8082:80
+    restart: always
 
   redis:
     image: redis:latest
@@ -49,14 +49,19 @@ services:
     command: --configFile=traefik.toml
     ports:
       - "80:80"
-      - "8562:8080"
+      - "8080:8080"
+    links: 
+      - etcd
     volumes:
       - ./rapis_router/traefik.toml:/etc/traefik/traefik.toml
-
   etcd:
-    image: bitnami/etcd:latest
-    environment:
-      - ALLOW_NONE_AUTHENTICATION=yes
+    build: ./etcd
     ports:
-      - 2379:2379
+      - 2381:2379
       - 2380:2380
+      - 8409:80
+
+  influxdb:
+    image: influxdb
+    ports: 
+      - 8086:8086
