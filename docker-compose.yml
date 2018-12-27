@@ -65,3 +65,6 @@ services:
     image: influxdb
     ports: 
       - 8086:8086
+      - 8083:8083      
+      - 2003:2003
+
