@@ -12,5 +12,11 @@ curl -XPUT $tip/v2/keys/traefik/backends/backend1/circuitbreaker/expression -d v
 curl -XPUT $tip/v2/keys/traefik/backends/backend1/servers/server1/url -d value=$entry_1
 curl -XPUT $tip/v2/keys/traefik/backends/backend1/servers/server2/url -d value=$entry_2
 
-curl -XPUT $tip/v2/keys/traefik/backends/backend1/servers/server1/weight -d value='5'
-curl -XPUT $tip/v2/keys/traefik/backends/backend1/servers/server2/weight -d value='5'
+curl -XPUT $tip/v2/keys/traefik/backends/backend1/servers/server1/weight -d value='4'
+curl -XPUT $tip/v2/keys/traefik/backends/backend1/servers/server2/weight -d value='6'
+
+curl -XPUT $tip/v2/keys/traefik/frontends/frontend1/backend -d value="backend1"
+curl -XPUT $tip/v2/keys/traefik/frontends/frontend1/routes/test_1/rule -d value="Host:test.localhost"
+curl -XPUT $tip/v2/keys/traefik/frontends/frontend1/entrypoints -d value="http"
+
+
