@@ -5,3 +5,4 @@ Gopkg.*
 .vscode
 /etcd
 /servers
+/ansible
