@@ -1,0 +1,9 @@
+version: "2"
+services:
+  ansible:
+    image: ansible
+    container_name: ansible
+    tty: true
+    volumes:
+      - ./:/home
+    

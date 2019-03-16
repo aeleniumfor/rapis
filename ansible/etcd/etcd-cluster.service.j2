@@ -1,0 +1,16 @@
+[Unit]
+Description=etcd
+After=network.target
+
+[Service]
+Type=notify
+Restart=always
+RestartSec=5s
+LimitNOFILE=40000
+TimeoutStartSec=0
+User=root
+EnvironmentFile=/etc/etcd/etcd.env
+ExecStart=/bin/bash -c "GOMAXPROCS=$(nproc) /usr/bin/etcd --name=${ETCDNAME} --listen-client-urls http://0.0.0.0:2379 --advertise-client-urls http://{{ item }}:2379 --listen-peer-urls http://0.0.0.0:2380 --initial-advertise-peer-urls http://{{ item }}:2380 --discovery ${TOKEN}"
+
+[Install]
+WantedBy=multi-user.target

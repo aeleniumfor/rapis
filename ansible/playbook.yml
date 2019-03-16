@@ -1,0 +1,91 @@
+- hosts: master
+  tasks:
+    - name: firewalld systemd
+      systemd:
+        name: firewalld.service
+        state: stopped
+        enabled: false
+
+    - name: install packages
+      yum: name={{ item }} state=latest
+      with_items:
+        - yum-utils
+        - device-mapper-persistent-data
+        - lvm2
+        - git
+
+    - name: add docker repo
+      shell: "yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo"
+
+    - name: update yum pakage list
+      shell: "yum makecache fast"
+
+    - name: yum update
+      yum: name=* state=latest
+
+    - name: install docker-ce and etcd
+      yum: name={{ item }} state=latest
+      with_items:
+        - docker-ce
+        - etcd
+
+    - name: flannel install
+      shell: "wget https://github.com/coreos/flannel/releases/download/v0.9.1/flanneld-amd64 && chmod +x flanneld-amd64 && mv ./flanneld-amd64 /usr/bin/flanneld"
+
+    - name: flanneld service
+      template: src=./flanneld/flanneld-service.j2 dest=/etc/systemd/system/flanneld.service
+
+    - name: etcd env
+      template: src=./etcd/etcd.env dest=/etc/etcd/etcd.env
+      vars:
+        - ETCD_NAME: "{{ ansible_hostname }}"
+        - TOKEN: "{{ TOKEN }}"
+
+    - name: etcd cluster service
+      template: src=./etcd/etcd-cluster.service.j2 dest=/etc/systemd/system/etcd-cluster.service
+      with_items:
+        - "{{ ansible_eth0.ipv4.address }}"
+
+    - name: stop etcd.service
+      systemd:
+        name: etcd-cluster.service
+        state: stopped
+        daemon_reload: yes
+        enabled: yes
+
+    - name: start etcd.service
+      systemd:
+        name: etcd-cluster.service
+        state: started
+        daemon_reload: yes
+        enabled: yes
+
+    - name: copy to remote etcd.sh
+      copy: src=./etcd/etcd.sh dest=./etcd.sh
+
+    - name: etcdctl set key valu
+      shell: "sh ./etcd.sh"
+
+    - name: start flanneld.service
+      systemd:
+        name: flanneld.service
+        state: started
+        daemon_reload: yes
+        enabled: yes
+
+    - name: stop docker.service
+      systemd:
+        name: docker.service
+        state: stopped
+        daemon_reload: yes
+        enabled: yes
+
+    - name: copy to docker.service
+      copy: src=./docker/docker.service dest=/usr/lib/systemd/system/docker.service
+
+    - name: start docker.service
+      systemd:
+        name: docker.service
+        state: started
+        daemon_reload: yes
+        enabled: yes

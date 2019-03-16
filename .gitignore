@@ -5,4 +5,7 @@ Gopkg.*
 .vscode
 /etcd
 /servers
-/ansible
+/ansible/hosts
+/ansible/id_rsa
+/ansible/playbook.retry
+
